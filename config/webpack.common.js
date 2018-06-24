@@ -1,10 +1,15 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const CONFIG = require("./config")
+
+
 // 4、提取第三方JS庫
 const VENDOR = [
     "react",
-    "react-dom"
+    "react-dom",
+    "react-router-dom",
 ];
 
 
@@ -20,7 +25,7 @@ module.exports = {
         vendor: VENDOR
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: CONFIG.build.outRoot,
         // filename: 'app_[chunkhash].js'
         // 加上/js就会输出到js文件夹下面
         filename: 'js/[name]_[chunkhash].js'

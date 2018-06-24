@@ -1,25 +1,27 @@
+var path = require('path')
+var webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const merge = require('webpack-merge')
+var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const common = require('./webpack.common.js')
 
-var webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const merge = require('webpack-merge');
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const common = require('./webpack.common.js');
+const CONFIG = require("./config")
 
 module.exports = merge(common, {
-    output:{
+    output: {
         // 打包后html内引入文件是相对路径还是绝对路径
         publicPath: "./",
     },
     //可以扩展
-    module:{
-        rules:[
+    module: {
+        rules: [
 
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        // new CleanWebpackPlugin(['../dist']),
         // 1、压缩CSS
         new OptimizeCSSPlugin({
             cssProcessorOptions: {
