@@ -11,11 +11,11 @@ class Comments extends React.Component {
             data: [
                 {
                     anthor: "马云",
-                    content: "阿里巴巴、呼啦呼啦"
+                    content: "阿里巴巴呼啦呼啦啦啦"
                 },
                 {
                     anthor: "马化腾",
-                    content: "腾讯唧唧复唧唧"
+                    content: "腾讯唧唧复唧唧唧唧"
                 }
             ]
         }
