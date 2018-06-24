@@ -5,6 +5,13 @@ class PageName extends React.Component {
         super(props)
         this.state = []
     }
+    render() {
+        return (
+            <div className = "page-demo">
+                <p>测试@alias</p>
+            </div>
+        )
+    }
 }
 
 module.exports = PageName

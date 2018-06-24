@@ -1,4 +1,3 @@
-
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -7,6 +6,12 @@ const VENDOR = [
     "react",
     "react-dom"
 ];
+
+
+// 5.1 配置resolve和alias，代替简写
+function resolve(dir) {
+    return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
     entry: {
@@ -19,6 +24,13 @@ module.exports = {
         // filename: 'app_[chunkhash].js'
         // 加上/js就会输出到js文件夹下面
         filename: 'js/[name]_[chunkhash].js'
+    },
+    // 5.2 jsx，js中可以@/xxx/xx
+    resolve: {
+        extensions: ['.js', '.jsx', '.json'],
+        alias: {
+            '@': resolve('src')
+        }
     },
     module: {
         rules: [
@@ -55,13 +67,18 @@ module.exports = {
             },
             // 1.4 使用stylus-loader 编译 .stylus为CSS
             {
-                test:/\.styl$/,
-                use:ExtractTextPlugin.extract({
-                    fallback:"style-loader",
-                    use:[
+                test: /\.styl$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [
                         "css-loader",
                         // "postcss-loader",
-                        { loader: 'postcss-loader', options: { sourceMap: true } },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
                         "stylus-loader"
                     ]
                 })
@@ -70,6 +87,8 @@ module.exports = {
             {
                 test: /(\.jsx|\.js)$/,
                 exclude: /node_modules/,
+                // 5.3 jsx，js中可以@/xxx/xx
+                include: [resolve('src')],
                 use: {
                     loader: "babel-loader"
                 }

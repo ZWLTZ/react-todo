@@ -18,11 +18,10 @@ let Api = Ajax("GET","https://api.github.com/gists").then( res => {
  */
 
 // 一、测试路由
-import HomeRouter from "./Router.jsx"
+import HomeRouter from "@/router/Router.js"
  
 // 、简单的评论
 import Comments from "./Comments.jsx"
-
 
 class App extends Component {
 	render() {
