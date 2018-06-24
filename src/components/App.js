@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Ajax from "../api/Api"
 
 let Api = Ajax("GET","https://api.github.com/gists").then( res => {
-	// console.log(res)
+	// console.log(res,"请求成功了！")
 	console.log("res")
 }).catch( error => {
 	console.log(error)

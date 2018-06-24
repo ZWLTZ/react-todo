@@ -20,7 +20,7 @@
   "homepage": "https://github.com/ZWLTZ/react-admin.git",
   "dependencies": {
     "react": "^15.6.1",
-    "react-dom": "^15.6.2"
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
