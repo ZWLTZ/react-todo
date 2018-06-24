@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const CONFIG = require("./config")
 
-
 // 4、提取第三方JS庫
 const VENDOR = [
     "react",
