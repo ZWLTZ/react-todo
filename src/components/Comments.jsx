@@ -26,7 +26,7 @@ class Comments extends React.Component {
         // comments.push(comment)
         comments.unshift(comment)
         this.setState({ data: comments })
-        console.log(comments,"新增了评论")
+        console.log(comments,"新增了评论1")
     }
     render() {
         return (

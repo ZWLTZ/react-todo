@@ -23,6 +23,9 @@ import HomeRouter from "@/router/Router.js"
 // 、简单的评论
 import Comments from "./Comments.jsx"
 
+// 3、測試Antd組件
+import TestAntd from "./TestAntd.jsx"
+
 class App extends Component {
 	render() {
 		return (
@@ -31,6 +34,8 @@ class App extends Component {
 				<HomeRouter />
 				<h3 className = "index-title">二、简单的评论</h3>
 				<Comments />
+				<h3 className = "index-title">二、简单的评论</h3>
+				<TestAntd />
 			</div>
 		);
 	}
