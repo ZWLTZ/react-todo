@@ -34,7 +34,7 @@ class App extends Component {
 				<HomeRouter />
 				<h3 className = "index-title">二、简单的评论</h3>
 				<Comments />
-				<h3 className = "index-title">二、简单的评论</h3>
+				<h3 className = "index-title">三、測試Antd-Design-UI組件</h3>
 				<TestAntd />
 			</div>
 		);

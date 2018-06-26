@@ -10,9 +10,7 @@ import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
 import 'antd/lib/date-picker/style/css';
-
 import 'antd/lib/locale-provider/style/css'
-
 import 'antd/lib/message/style/css'
 
 class TestAntd extends React.Component{
