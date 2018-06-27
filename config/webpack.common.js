@@ -9,6 +9,8 @@ const VENDOR = [
     "react",
     "react-dom",
     "react-router-dom",
+    "antd",
+    "moment",
 ];
 
 
