@@ -1,5 +1,5 @@
 {
-  "name": "react-admin",
+  "name": "react-todo",
   "version": "1.0.0",
   "description": "react config with webpack",
   "main": "index.js",
@@ -15,9 +15,9 @@
   "author": "nine",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ZWLTZ/react-admin/issues"
+    "url": "https://github.com/ZWLTZ/react-todo/issues"
   },
-  "homepage": "https://github.com/ZWLTZ/react-admin.git",
+  "homepage": "https://github.com/ZWLTZ/react-todo.git",
   "dependencies": {
     "lib-flexible": "^0.3.2",
     "react": "^15.6.1",
