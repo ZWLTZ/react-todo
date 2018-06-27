@@ -8,9 +8,7 @@ const CONFIG = require("./config")
 const VENDOR = [
     "react",
     "react-dom",
-    "react-router-dom",
-    "antd",
-    "moment",
+    "lib-flexible",
 ];
 
 
@@ -124,7 +122,7 @@ module.exports = {
             allChunks: true
         }),
         new HtmlWebpackPlugin({
-            title: 'React admin',
+            title: 'React-Todo',
             abc: '自定义输出',
             filename: 'index.html',
             template: 'webpack.html.ejs'
