@@ -13,6 +13,9 @@ class Todo extends React.Component {
         this.state = {
             list: Storage.fetch()
         }
+        // 傳遞回調函數
+        this.onAddSubmit = this.onAddSubmit.bind(this)
+        this.onChangeIsfinish = this.onChangeIsfinish.bind(this)
     }
     componentDidMount() {
         console.log("已經掛載上了")
@@ -24,15 +27,24 @@ class Todo extends React.Component {
         newList.unshift(addCurrent)
         this.setState({ list: newList })
         //1.1 保存到session Storage
+        this._saveToSession()
+    }
+    _saveToSession() {
         Storage.save(this.state.list)
     }
-
+    onChangeIsfinish(index, item) {
+        let oldList = this.state.list
+        oldList[index] = item
+        this.setState({ list: oldList })
+        // 
+        this._saveToSession()
+    }
     render() {
         return (
             <div className="todo-wrap">
                 <h3>Todo</h3>
-                <TodoAdd onAddSubmit={this.onAddSubmit.bind(this)} />
-                <TodoList data={this.state.list} />
+                <TodoAdd onAddSubmit={this.onAddSubmit} />
+                <TodoList onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
             </div>
         )
     }

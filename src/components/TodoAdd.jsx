@@ -46,8 +46,15 @@ class TodoAdd extends React.Component {
     }
     render() {
         return (
-            <div className="todo-wrap">
-                <input type="text" value={this.state.item.title} onChange={this._changeValueHandle} onKeyUp={this._onKeyUpEnter} onBlur={this._onBlurEnter} ref="content" maxLength="15" placeholder="输入...." />
+            <div className="todo-add">
+                <input type="text"
+                    value={this.state.item.title}
+                    onChange={this._changeValueHandle}
+                    onKeyUp={this._onKeyUpEnter}
+                    onBlur={this._onBlurEnter}
+                    ref="content"
+                    maxLength="20"
+                    placeholder="输入...." />
             </div>
         )
     }
