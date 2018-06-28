@@ -5,6 +5,7 @@ class TodoList extends React.Component {
         super(props)
         console.log(this.props)
         this._onChangeChecked = this._onChangeChecked.bind(this)
+        this._deleteCurrent = this._deleteCurrent.bind(this)
     }
     _onChangeChecked(e) {
         let target = e.target
@@ -16,6 +17,10 @@ class TodoList extends React.Component {
         console.log(index)
         console.log(changeItem)
         this.props.onChangeIsfinish(index, changeItem)
+    }
+    _deleteCurrent(e) {
+        let currentIndex = e.target.getAttribute("data-index")
+        this.props.onDeleteItem(currentIndex)
     }
     render() {
         return (
@@ -30,7 +35,7 @@ class TodoList extends React.Component {
                                     checked={item.isFinished} />
                             </label>
                             <span className="list-title">{item.title}</span>
-                            <a className="delete-btn" href="javascript:;">✖</a>
+                            <a data-index={index} onClick={this._deleteCurrent} className="delete-btn" href="javascript:;">✖</a>
                         </li>
                     )}
                 </ul>

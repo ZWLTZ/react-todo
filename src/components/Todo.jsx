@@ -16,6 +16,7 @@ class Todo extends React.Component {
         // 傳遞回調函數
         this.onAddSubmit = this.onAddSubmit.bind(this)
         this.onChangeIsfinish = this.onChangeIsfinish.bind(this)
+        this.onDeleteItem = this.onDeleteItem.bind(this)
     }
     componentDidMount() {
         console.log("已經掛載上了")
@@ -39,12 +40,20 @@ class Todo extends React.Component {
         // 
         this._saveToSession()
     }
+    onDeleteItem(index) {
+        let nowList = this.state.list
+        nowList.splice(index, 1)
+        console.log(index, nowList, "將要刪除")
+        // 重置
+        this.setState({ list: nowList })
+        this._saveToSession()
+    }
     render() {
         return (
             <div className="todo-wrap">
-                <h3>Todo</h3>
+                <h3>react-todo</h3>
                 <TodoAdd onAddSubmit={this.onAddSubmit} />
-                <TodoList onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
+                <TodoList onDeleteItem={this.onDeleteItem} onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
             </div>
         )
     }
