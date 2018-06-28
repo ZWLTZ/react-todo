@@ -34,12 +34,10 @@ class TodoList extends React.Component {
                 <ul className="list-box">
                     {this.props.data.map((item, index) =>
                         <li key={index}>
-                            <label>
-                                <input className="is-hide" type="checkbox"
-                                    data-index={index}
-                                    onChange={this._onChangeChecked}
-                                    checked={item.isFinished} />
-                            </label>
+                            <input className="is-hide" type="checkbox"
+                                data-index={index}
+                                onChange={this._onChangeChecked}
+                                checked={item.isFinished} />
                             <span className="list-title">{item.title}</span>
                             <a href="javascript:;" className="delete-btn" data-index={index} onClick={this._deleteCurrent}>✖</a>
                         </li>

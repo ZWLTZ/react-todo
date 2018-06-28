@@ -12,14 +12,12 @@ class TodoAdd extends React.Component {
     // 1、只要值改變就獲取并重置
     _changeValueHandle(e) {
         let content = e.target.value.trim()
-        if (content) {
-            this.setState({
-                item: {
-                    title: content,
-                    isFinished: false
-                }
-            })
-        }
+        this.setState({
+            item: {
+                title: content,
+                isFinished: false
+            }
+        })
     }
     // 2、點擊enter鍵：有值就確認增加
     _onKeyUpEnter(e) {
