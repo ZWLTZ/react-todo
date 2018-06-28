@@ -28,7 +28,8 @@ class TodoList extends React.Component {
         return (
             <div className="todo-list">
                 <div className="counts-statue">
-                    <span>{this.props.data.length > 1 ? this.props.data.length + " matters" : this.props.data.length + " matter"}</span>
+                    <span className="total-count">{this.props.data.length > 1 ? this.props.data.length + " matters" : this.props.data.length + " matter"}</span>
+                    <span className="finished-count">Finished：{5}</span>
                 </div>
                 <ul className="list-box">
                     {this.props.data.map((item, index) =>

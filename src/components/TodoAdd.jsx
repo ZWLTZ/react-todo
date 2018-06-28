@@ -54,7 +54,7 @@ class TodoAdd extends React.Component {
                     onBlur={this._onBlurEnter}
                     ref="content"
                     maxLength="20"
-                    placeholder="输入...." />
+                    placeholder="Please type...." />
             </div>
         )
     }
