@@ -23,7 +23,7 @@ class Todo extends React.Component {
     }
     //1 传递给子组件的回调函数
     onAddSubmit(addCurrent) {
-        console.log(addCurrent, "222")
+        console.log(addCurrent, "要增加")
         let newList = this.state.list
         newList.unshift(addCurrent)
         this.setState({ list: newList })

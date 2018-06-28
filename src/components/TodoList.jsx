@@ -4,6 +4,7 @@ class TodoList extends React.Component {
     constructor(props) {
         super(props)
         console.log(this.props)
+        this.state = { tips: { allTips: "", finishedTips: "" } }
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
     }
@@ -14,18 +15,22 @@ class TodoList extends React.Component {
             title: this.props.data[index].title,
             isFinished: target.checked
         }
-        console.log(index)
-        console.log(changeItem)
         this.props.onChangeIsfinish(index, changeItem)
     }
     _deleteCurrent(e) {
         let currentIndex = e.target.getAttribute("data-index")
         this.props.onDeleteItem(currentIndex)
     }
+    componentDidMount() {
+
+    }
     render() {
         return (
             <div className="todo-list">
-                <ul>
+                <div className="counts-statue">
+                    <span>{this.props.data.length > 1 ? this.props.data.length + " matters" : this.props.data.length + " matter"}</span>
+                </div>
+                <ul className="list-box">
                     {this.props.data.map((item, index) =>
                         <li key={index}>
                             <label>
@@ -35,7 +40,7 @@ class TodoList extends React.Component {
                                     checked={item.isFinished} />
                             </label>
                             <span className="list-title">{item.title}</span>
-                            <a data-index={index} onClick={this._deleteCurrent} className="delete-btn" href="javascript:;">✖</a>
+                            <a href="javascript:;" className="delete-btn" data-index={index} onClick={this._deleteCurrent}>✖</a>
                         </li>
                     )}
                 </ul>

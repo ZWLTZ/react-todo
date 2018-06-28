@@ -41,10 +41,14 @@ ab-center()
     .todo-list
         margin-top: .4rem
 
+        .list-box
+            margin-top: .3rem
+            border-top: 1px dashed #f0f0f0
+
         li
             position relative
             padding-bottom: .2rem
-            border-bottom:  1px dashed #f0f0f0
+            border-bottom: 1px dashed #f0f0f0
             cursor pointer
 
             label,.list-title
@@ -112,3 +116,9 @@ ab-center()
             &:hover
                 .delete-btn
                     display: block
+
+        // 總數狀態
+        .counts-statue
+            span 
+                font-size: .25rem
+                color: #e4393c
