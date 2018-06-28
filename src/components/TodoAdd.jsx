@@ -3,31 +3,51 @@ import React from "react"
 class TodoAdd extends React.Component {
     constructor(props) {
         super(props)
-        this.submitClick = this.submitClick.bind(this)
+        this.state = { item: { title: "", isFinished: false } }
+        this._changeValueHandle = this._changeValueHandle.bind(this)
+        this._onKeyUpEnter = this._onKeyUpEnter.bind(this)
+        this._onBlurEnter = this._onBlurEnter.bind(this)
+        this.confirmAddItem = this.confirmAddItem.bind(this)
     }
-    submitClick(event) {
-        // 通过：refs 集合获取指定的值
-        let content = this.refs.content.value.trim()
-        // 1、调用父组件的回调函数，传递参数.es6结构赋值
-        if (!content) {
-            alert("评论不能为空")
-            return
-        } else {
-            let newItem = {
-                title: content,
-                isFinished: false
-            }
-            console.log(newItem,"111")
-            this.props.onAddSubmit(newItem)
-            // // 置空
-            this.refs.content.value = ""
+    // 1、只要值改變就獲取并重置
+    _changeValueHandle(e) {
+        let content = e.target.value.trim()
+        if (content) {
+            this.setState({
+                item: {
+                    title: content,
+                    isFinished: false
+                }
+            })
+        }
+    }
+    // 2、點擊enter鍵：有值就確認增加
+    _onKeyUpEnter(e) {
+        if (e.keyCode == 13) {
+            this.confirmAddItem()
+        }
+    }
+    // 3、失去焦點：有值就確認增加
+    _onBlurEnter(e) {
+        this.confirmAddItem()
+    }
+    // 4、確認增加，调用父组件的回调函数，传递参数
+    confirmAddItem() {
+        if (this.state.item.title) {
+            this.props.onAddSubmit(this.state.item)
+            // 置空當前狀態
+            this.setState({
+                item: {
+                    title: "",
+                    isFinished: false
+                }
+            })
         }
     }
     render() {
         return (
             <div className="todo-wrap">
-                <input type="text" ref="content" maxLength="15" placeholder="输入...." />
-                <a onClick={this.submitClick} href="javascript:;">添加</a>
+                <input type="text" value={this.state.item.title} onChange={this._changeValueHandle} onKeyUp={this._onKeyUpEnter} onBlur={this._onBlurEnter} ref="content" maxLength="15" placeholder="输入...." />
             </div>
         )
     }
