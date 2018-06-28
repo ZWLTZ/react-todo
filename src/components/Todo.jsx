@@ -4,22 +4,18 @@ import React from "react"
 import TodoAdd from "./TodoAdd.jsx"
 import TodoList from "./TodoList.jsx"
 
+// 操作
+import { Storage } from "@/utils"
+
 class Todo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: [
-                {
-                    title: "阿里巴巴呼啦呼啦啦啦",
-                    isFinished: true,
-                },
-                {
-                    title: "腾讯唧唧复唧唧唧唧",
-                    isFinished: false,
-                }
-            ],
-            text: ""
+            list: Storage.fetch()
         }
+    }
+    componentDidMount() {
+        console.log("已經掛載上了")
     }
     //1 传递给子组件的回调函数
     onAddSubmit(addCurrent) {
@@ -27,6 +23,8 @@ class Todo extends React.Component {
         let newList = this.state.list
         newList.unshift(addCurrent)
         this.setState({ list: newList })
+        //1.1 保存到session Storage
+        Storage.save(this.state.list)
     }
 
     render() {
