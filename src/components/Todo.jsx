@@ -17,6 +17,7 @@ class Todo extends React.Component {
         this.onAddSubmit = this.onAddSubmit.bind(this)
         this.onChangeIsfinish = this.onChangeIsfinish.bind(this)
         this.onDeleteItem = this.onDeleteItem.bind(this)
+        this.onToggleAll = this.onToggleAll.bind(this)
     }
     componentDidMount() {
         console.log("已經掛載上了")
@@ -48,12 +49,20 @@ class Todo extends React.Component {
         this.setState({ list: nowList })
         this._saveToSession()
     }
+    onToggleAll(allList) {
+        if (allList.length) {
+            console.log(allList, "全部切换为")
+            // 重置
+            this.setState({ list: allList })
+            this._saveToSession()
+        }
+    }
     render() {
         return (
             <div className="todo-wrap">
                 <h3>react-todo</h3>
                 <TodoAdd onAddSubmit={this.onAddSubmit} />
-                <TodoList onDeleteItem={this.onDeleteItem} onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
+                <TodoList onToggleAll={this.onToggleAll} onDeleteItem={this.onDeleteItem} onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
             </div>
         )
     }
