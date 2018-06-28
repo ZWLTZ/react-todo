@@ -4,7 +4,6 @@ class TodoList extends React.Component {
     constructor(props) {
         super(props)
         console.log(this.props)
-        this.state = { tips: { allTips: "", finishedTips: "" } }
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
     }
@@ -25,11 +24,21 @@ class TodoList extends React.Component {
 
     }
     render() {
+        let allTips = this.props.data.length > 1 ? this.props.data.length + " Matters" : this.props.data.length + " Matter"
+        let finishedCount = () => {
+            let count = 0
+            this.props.data.filter(item => {
+                if (item.isFinished) {
+                    count += 1
+                }
+            })
+            return count
+        }
         return (
             <div className="todo-list">
                 <div className="counts-statue">
-                    <span className="total-count">{this.props.data.length > 1 ? this.props.data.length + " matters" : this.props.data.length + " matter"}</span>
-                    <span className="finished-count">Finished：{5}</span>
+                    <span className="total-count">{allTips}</span>
+                    <span className="finished-count">Finished：{finishedCount()}</span>
                 </div>
                 <ul className="list-box">
                     {this.props.data.map((item, index) =>
