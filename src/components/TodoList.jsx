@@ -30,6 +30,7 @@ class TodoList extends React.Component {
                                     checked={item.isFinished} />
                             </label>
                             <span className="list-title">{item.title}</span>
+                            <a className="delete-btn" href="javascript:;">✖</a>
                         </li>
                     )}
                 </ul>
