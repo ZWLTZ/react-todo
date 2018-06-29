@@ -107,8 +107,9 @@ ab-center()
 
             .list-title
                 font-size: .28rem
-                margin-left .1rem
+                padding: .2rem
                 transition color .3s
+
             // 刪除按鈕
             .delete-btn
                 display: none
@@ -137,14 +138,20 @@ ab-center()
             // 双击编辑
             .edit-item
                 display: none
+                padding: .2rem
+                font-size: .28rem
+                width: 7.8rem
+                border: 1px solid #8ac007
+                color: #8ac007
+
+                vertical-align: middle
         
         li.editing
             .list-title,.delete-btn
                 display: none
 
             .edit-item
-                display: block
-
+                display: inline-block
         
 
         // 路由

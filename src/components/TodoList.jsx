@@ -4,13 +4,17 @@ class TodoList extends React.Component {
     constructor(props) {
         super(props)
         console.log(this.props)
+        this.state = { editTitle: "" }
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._toggleAllChecked = this._toggleAllChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
         this._onEditing = this._onEditing.bind(this)
         this._onChangeEdit = this._onChangeEdit.bind(this)
+        this._onKeyUpEnterEdit = this._onKeyUpEnterEdit.bind(this)
+        this._onBlurEdit = this._onBlurEdit.bind(this)
     }
     _onChangeChecked(e) {
+        e.stopPropagation()
         let target = e.target
         let index = target.getAttribute("data-index")
         let changeItem = {
@@ -20,6 +24,7 @@ class TodoList extends React.Component {
         this.props.onChangeIsfinish(index, changeItem)
     }
     _toggleAllChecked(e) {
+        e.stopPropagation()
         let allTarget = e.target
         let allList = this.props.data
         allList.map(item => {
@@ -28,6 +33,7 @@ class TodoList extends React.Component {
         this.props.onToggleAll(allList)
     }
     _deleteCurrent(e) {
+        e.stopPropagation()
         let currentIndex = e.target.getAttribute("data-index")
         this.props.onDeleteItem(currentIndex)
     }
@@ -37,11 +43,37 @@ class TodoList extends React.Component {
     // 双击编辑
     _onEditing(e) {
         e.stopPropagation()
-        let editTarget = e.target
-        editTarget.className = "editing"
+        let doubleCliclTarget = e.target
+        if (doubleCliclTarget.nodeName.toUpperCase() === "LI") {
+            this.doubleCliclTarget = doubleCliclTarget
+            this.doubleCliclTarget.className = "editing"
+            // 指定当前的value
+            let nowIndex = doubleCliclTarget.getAttribute("data-index")
+            this.beforeEditValue = this.props.data[nowIndex].title
+            this.setState({ editTitle: this.beforeEditValue })
+            // 暂存判断是否值有变化
+        }
     }
-    _onChangeEdit(e){
-        console.log(e.target.value.trim())
+    _onChangeEdit(e) {
+        let editTarget = e.target
+        let editValue = editTarget.value.trim()
+        this.editIndex = editTarget.getAttribute("data-index")
+        this.setState({ editTitle: editValue })
+
+    }
+    _onKeyUpEnterEdit(e) {
+        if (e.keyCode == 13) {
+            this.confirmEditing()
+        }
+    }
+    _onBlurEdit(e) {
+        this.confirmEditing()
+    }
+    confirmEditing() {
+        let endEditValue = this.state.editTitle
+        // 如果重新编辑且变化再重新设定（暂时可以忽略）
+        this.doubleCliclTarget.className = ""
+        this.props.onHasEdited(this.editIndex, endEditValue)
     }
     render() {
         let allTips = this.props.data.length > 1 ? this.props.data.length + " Matters" : this.props.data.length + " Matter"
@@ -67,17 +99,20 @@ class TodoList extends React.Component {
                 </div>
                 <ul className="list-box">
                     {this.props.data.map((item, index) =>
-                        <li key={index} onDoubleClick={this._onEditing}>
+                        <li key={index} onDoubleClick={this._onEditing} data-index={index}>
                             <input className="is-hide" type="checkbox"
                                 data-index={index}
                                 onChange={this._onChangeChecked}
                                 checked={item.isFinished} />
                             <span className="list-title">{item.title}</span>
                             <a href="javascript:;" className="delete-btn" data-index={index} onClick={this._deleteCurrent}>✖</a>
-                            <input  type="text" className="edit-item"
+                            <input type="text" className="edit-item"
+                                maxLength="20"
                                 data-index={index}
-                                value={item.title}
-                                onChange={this._onChangeEdit} />
+                                value={this.state.editTitle}
+                                onChange={this._onChangeEdit}
+                                onKeyUp={this._onKeyUpEnterEdit}
+                                onBlur={this._onBlurEdit} />
                         </li>
                     )}
                 </ul>

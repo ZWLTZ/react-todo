@@ -18,6 +18,7 @@ class Todo extends React.Component {
         this.onChangeIsfinish = this.onChangeIsfinish.bind(this)
         this.onDeleteItem = this.onDeleteItem.bind(this)
         this.onToggleAll = this.onToggleAll.bind(this)
+        this.onHasEdited = this.onHasEdited.bind(this)
     }
     componentDidMount() {
         console.log("已經掛載上了")
@@ -57,12 +58,31 @@ class Todo extends React.Component {
             this._saveToSession()
         }
     }
+    // 重新编辑回调
+    onHasEdited(index, value) {
+        let editList = this.state.list
+        console.log(editList, "重新编辑了第" + index + value)
+        // 直接删除
+        if (!value || value == undefined) {
+            editList.splice(index, 1)
+        } else if (index && value) {
+            editList[index].title = value
+        }
+        // 重置
+        this.setState({ list: editList })
+        this._saveToSession()
+    }
     render() {
         return (
             <div className="todo-wrap">
                 <h3>react-todo</h3>
                 <TodoAdd onAddSubmit={this.onAddSubmit} />
-                <TodoList onToggleAll={this.onToggleAll} onDeleteItem={this.onDeleteItem} onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
+                <TodoList
+                    onToggleAll={this.onToggleAll}
+                    onDeleteItem={this.onDeleteItem}
+                    onChangeIsfinish={this.onChangeIsfinish}
+                    onHasEdited={this.onHasEdited}
+                    data={this.state.list} />
                 <p className="icon-tips">Double-click to edit a todo</p>
             </div>
         )
