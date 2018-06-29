@@ -63,6 +63,7 @@ class Todo extends React.Component {
                 <h3>react-todo</h3>
                 <TodoAdd onAddSubmit={this.onAddSubmit} />
                 <TodoList onToggleAll={this.onToggleAll} onDeleteItem={this.onDeleteItem} onChangeIsfinish={this.onChangeIsfinish} data={this.state.list} />
+                <p className="icon-tips">Double-click to edit a todo</p>
             </div>
         )
     }

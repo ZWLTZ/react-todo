@@ -20,8 +20,12 @@ ab-center()
     width: 10rem
     margin: 0 auto
 
+.icon-tips
+    text-align: center
+    color: #999999
+
 .todo-wrap
-    padding: .6rem
+    padding: .6rem .6rem .3rem .6rem
 
     h3
         margin: 0
@@ -130,8 +134,8 @@ ab-center()
                 .delete-btn
                     display: block
 
-        // 總數狀態
-        .counts-status
+        // 路由
+        .toggle-all-box
             position relative
 
             label,span
@@ -156,6 +160,15 @@ ab-center()
                     &:before
                         color: #38B9B9
                         text-shadow #669991 0px -1px 0px
+
+        // 總數狀態
+        .counts-status
+            position relative
+            padding .2rem 0
+
+            label,span
+                display inline-block
+                vertical-align middle
 
             span 
                 font-size: .2rem

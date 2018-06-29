@@ -47,15 +47,12 @@ class TodoList extends React.Component {
         }
         return (
             <div className="todo-list">
-                <div className="counts-status">
+                <div className="toggle-all-box">
                     <label>
                         <input className="toggle-all" type="checkbox"
                             checked={filterCounts().left == 0 && filterCounts().count != 0}
                             onChange={this._toggleAllChecked} />
                     </label>
-                    <span className="finished-count">Completed：{filterCounts().count}</span>
-                    <span className="left-count">{filterCounts().left > 1 ? filterCounts().left + " Matters left" : filterCounts().left + " Matter left"}</span>
-                    <span className="total-count">{allTips}</span>
                 </div>
                 <ul className="list-box">
                     {this.props.data.map((item, index) =>
@@ -69,6 +66,11 @@ class TodoList extends React.Component {
                         </li>
                     )}
                 </ul>
+                <div className="counts-status">
+                    <span className="finished-count">Completed：{filterCounts().count}</span>
+                    <span className="left-count">{filterCounts().left > 1 ? filterCounts().left + " Matters left" : filterCounts().left + " Matter left"}</span>
+                    <span className="total-count">{allTips}</span>
+                </div>
             </div>
         )
     }
