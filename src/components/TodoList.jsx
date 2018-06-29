@@ -51,7 +51,13 @@ class TodoList extends React.Component {
             let nowIndex = doubleCliclTarget.getAttribute("data-index")
             this.beforeEditValue = this.props.data[nowIndex].title
             this.setState({ editTitle: this.beforeEditValue })
-            // 暂存判断是否值有变化
+            // 當前下面input获取焦点
+            let childrenList = this.doubleCliclTarget.children
+            for (let i = 0, len = childrenList.length; i < len; i++) {
+                if (childrenList[i].className == "edit-item") {
+                    childrenList[i].focus()
+                }
+            }
         }
     }
     _onChangeEdit(e) {
@@ -71,7 +77,7 @@ class TodoList extends React.Component {
     }
     confirmEditing() {
         let endEditValue = this.state.editTitle
-        // 如果重新编辑且变化再重新设定（暂时可以忽略）
+        // 如果重新编辑且值变化再重新设定（暂时可以忽略）
         this.doubleCliclTarget.className = ""
         this.props.onHasEdited(this.editIndex, endEditValue)
     }

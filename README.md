@@ -4,6 +4,8 @@
 + npm run dev
 + npm run build
 
+#### 
+[MIT](http://opensource.org/licenses/MIT)
 
 #### support
 
