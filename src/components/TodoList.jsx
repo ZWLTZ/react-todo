@@ -7,6 +7,8 @@ class TodoList extends React.Component {
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._toggleAllChecked = this._toggleAllChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
+        this._onEditing = this._onEditing.bind(this)
+        this._onChangeEdit = this._onChangeEdit.bind(this)
     }
     _onChangeChecked(e) {
         let target = e.target
@@ -32,6 +34,15 @@ class TodoList extends React.Component {
     componentDidMount() {
 
     }
+    // 双击编辑
+    _onEditing(e) {
+        e.stopPropagation()
+        let editTarget = e.target
+        editTarget.className = "editing"
+    }
+    _onChangeEdit(e){
+        console.log(e.target.value.trim())
+    }
     render() {
         let allTips = this.props.data.length > 1 ? this.props.data.length + " Matters" : this.props.data.length + " Matter"
         let filterCounts = () => {
@@ -56,13 +67,17 @@ class TodoList extends React.Component {
                 </div>
                 <ul className="list-box">
                     {this.props.data.map((item, index) =>
-                        <li key={index}>
+                        <li key={index} onDoubleClick={this._onEditing}>
                             <input className="is-hide" type="checkbox"
                                 data-index={index}
                                 onChange={this._onChangeChecked}
                                 checked={item.isFinished} />
                             <span className="list-title">{item.title}</span>
                             <a href="javascript:;" className="delete-btn" data-index={index} onClick={this._deleteCurrent}>✖</a>
+                            <input  type="text" className="edit-item"
+                                data-index={index}
+                                value={item.title}
+                                onChange={this._onChangeEdit} />
                         </li>
                     )}
                 </ul>
