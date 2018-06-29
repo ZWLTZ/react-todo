@@ -26,9 +26,8 @@ class Todo extends React.Component {
     //1 传递给子组件的回调函数
     onAddSubmit(addCurrent) {
         console.log(addCurrent, "要增加")
-        let newList = this.state.list
-        newList.unshift(addCurrent)
-        this.setState({ list: newList })
+        this.state.list.unshift(addCurrent)
+        this.setState({ list: this.state.list })
         //1.1 保存到session Storage
         this._saveToSession()
     }
@@ -36,18 +35,14 @@ class Todo extends React.Component {
         Storage.save(this.state.list)
     }
     onChangeIsfinish(index, item) {
-        let oldList = this.state.list
-        oldList[index] = item
-        this.setState({ list: oldList })
-        // 
+        this.state.list[index] = item
+        this.setState({ list: this.state.list })
         this._saveToSession()
     }
     onDeleteItem(index) {
-        let nowList = this.state.list
-        nowList.splice(index, 1)
-        console.log(index, nowList, "將要刪除")
-        // 重置
-        this.setState({ list: nowList })
+        this.state.list.splice(index, 1)
+        console.log(index, "將要刪除")
+        this.setState({ list: this.state.list })
         this._saveToSession()
     }
     onToggleAll(allList) {

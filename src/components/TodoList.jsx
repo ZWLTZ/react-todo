@@ -5,6 +5,7 @@ class TodoList extends React.Component {
         super(props)
         console.log(this.props)
         this.state = { editTitle: "" }
+        console.log(this.state.editTitle)
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._toggleAllChecked = this._toggleAllChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
@@ -25,12 +26,10 @@ class TodoList extends React.Component {
     }
     _toggleAllChecked(e) {
         e.stopPropagation()
-        let allTarget = e.target
-        let allList = this.props.data
-        allList.map(item => {
-            item.isFinished = allTarget.checked
+        this.props.data.map(item => {
+            item.isFinished = e.target.checked
         })
-        this.props.onToggleAll(allList)
+        this.props.onToggleAll(this.props.data)
     }
     _deleteCurrent(e) {
         e.stopPropagation()
@@ -48,8 +47,8 @@ class TodoList extends React.Component {
             this.doubleCliclTarget = doubleCliclTarget
             this.doubleCliclTarget.className = "editing"
             // 指定当前的value
-            let nowIndex = doubleCliclTarget.getAttribute("data-index")
-            this.beforeEditValue = this.props.data[nowIndex].title
+            this.editIndex = doubleCliclTarget.getAttribute("data-index")
+            this.beforeEditValue = this.props.data[this.editIndex].title
             this.setState({ editTitle: this.beforeEditValue })
             // 當前下面input获取焦点
             let childrenList = this.doubleCliclTarget.children
@@ -63,23 +62,23 @@ class TodoList extends React.Component {
     _onChangeEdit(e) {
         let editTarget = e.target
         let editValue = editTarget.value.trim()
-        this.editIndex = editTarget.getAttribute("data-index")
         this.setState({ editTitle: editValue })
-
     }
     _onKeyUpEnterEdit(e) {
         if (e.keyCode == 13) {
+            console.log(1)
+            e.target.removeEventListener("blur", this._onBlurEdit)
             this.confirmEditing()
         }
     }
     _onBlurEdit(e) {
+        console.log(2)
         this.confirmEditing()
     }
     confirmEditing() {
-        let endEditValue = this.state.editTitle
-        // 如果重新编辑且值变化再重新设定（暂时可以忽略）
         this.doubleCliclTarget.className = ""
-        this.props.onHasEdited(this.editIndex, endEditValue)
+        this.props.onHasEdited(this.editIndex, this.state.editTitle)
+        console.log(this.editIndex)
     }
     render() {
         let allTips = this.props.data.length > 1 ? this.props.data.length + " Matters" : this.props.data.length + " Matter"

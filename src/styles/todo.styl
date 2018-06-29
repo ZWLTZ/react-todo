@@ -45,13 +45,15 @@ ab-center()
         input
             display: block
             width: 100%
-            height .8rem
-            line-height: .8rem
 
-            padding: 0 .4rem
+            padding: 0.2rem .4rem
             border: 1px solid #999999
 
-            font-size: .3rem
+            font-size: .35rem
+            transition all 0.3s ease-in-out
+
+            &:focus
+                box-shadow 0 0 10px #999999
 
     // list
     .todo-list
@@ -80,19 +82,12 @@ ab-center()
                 appearance none
 
                 &:before
-                    display table
-                    width 100%
-                    height 100%
-
                     content: "✔"
                     font-size: .4rem
                     color: rgb(240, 240, 240)
                     text-shadow: rgb(191, 191, 191) 0px -1px 0px
 
-                    ab-center()
-
                     cursor pointer
-                    top 20%
 
                     transition: all .2s
 
@@ -106,8 +101,10 @@ ab-center()
                         text-decoration line-through
 
             .list-title
+                height .6rem
+                line-height .6rem
                 font-size: .28rem
-                padding: .2rem
+                padding:0 .2rem
                 transition color .3s
 
             // 刪除按鈕
@@ -138,13 +135,19 @@ ab-center()
             // 双击编辑
             .edit-item
                 display: none
-                padding: .2rem
+                height .6rem
+                line-height .6rem
+                padding:0 .2rem
                 font-size: .28rem
                 width: 7.8rem
                 border: 1px solid #8ac007
                 color: #8ac007
 
                 vertical-align: middle
+                transition all .3s ease-in-out
+
+                &:focus
+                    box-shadow 0 0 5px #8ac007
         
         li.editing
             .list-title,.delete-btn
