@@ -55,16 +55,15 @@ class Todo extends React.Component {
     }
     // 重新编辑回调
     onHasEdited(index, value) {
-        let editList = this.state.list
-        console.log(editList, "重新编辑了第" + index + value)
+        console.log(value ? "重新编辑了第：" + index + "个" : "删除了第：" + index + "个")
         // 直接删除
-        if (!value || value == undefined) {
-            editList.splice(index, 1)
+        if (!value) {
+            this.state.list.splice(index, 1)
         } else if (index && value) {
-            editList[index].title = value
+            this.state.list[index].title = value
         }
         // 重置
-        this.setState({ list: editList })
+        this.setState({ list: this.state.list })
         this._saveToSession()
     }
     render() {

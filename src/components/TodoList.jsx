@@ -5,7 +5,6 @@ class TodoList extends React.Component {
         super(props)
         console.log(this.props)
         this.state = { editTitle: "" }
-        console.log(this.state.editTitle)
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._toggleAllChecked = this._toggleAllChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
@@ -67,18 +66,21 @@ class TodoList extends React.Component {
     _onKeyUpEnterEdit(e) {
         if (e.keyCode == 13) {
             console.log(1)
-            e.target.removeEventListener("blur", this._onBlurEdit)
+            // 确认更改
             this.confirmEditing()
         }
     }
     _onBlurEdit(e) {
         console.log(2)
+        // 确认更改
         this.confirmEditing()
     }
     confirmEditing() {
-        this.doubleCliclTarget.className = ""
-        this.props.onHasEdited(this.editIndex, this.state.editTitle)
-        console.log(this.editIndex)
+        if (this.editIndex) {
+            this.doubleCliclTarget.className = ""
+            this.props.onHasEdited(this.editIndex, this.state.editTitle)
+            console.log(this.editIndex)
+        }
     }
     render() {
         let allTips = this.props.data.length > 1 ? this.props.data.length + " Matters" : this.props.data.length + " Matter"

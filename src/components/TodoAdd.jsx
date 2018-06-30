@@ -9,6 +9,9 @@ class TodoAdd extends React.Component {
         this._onBlurEnter = this._onBlurEnter.bind(this)
         this.confirmAddItem = this.confirmAddItem.bind(this)
     }
+    componentDidMount() {
+        document.getElementById("type-input").focus()
+    }
     // 1、只要值改變就獲取并重置
     _changeValueHandle(e) {
         let content = e.target.value.trim()
@@ -46,6 +49,7 @@ class TodoAdd extends React.Component {
         return (
             <div className="todo-add">
                 <input type="text"
+                    id="type-input"
                     value={this.state.item.title}
                     onChange={this._changeValueHandle}
                     onKeyUp={this._onKeyUpEnter}
