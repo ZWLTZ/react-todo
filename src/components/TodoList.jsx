@@ -80,6 +80,8 @@ class TodoList extends React.Component {
             this.doubleCliclTarget.className = ""
             this.props.onHasEdited(this.editIndex, this.state.editTitle)
         }
+        this.editIndex = null
+        this.setState({ editTitle: "" })
     }
     render() {
         let filterCounts = () => {
