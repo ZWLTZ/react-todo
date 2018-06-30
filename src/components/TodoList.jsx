@@ -17,18 +17,13 @@ class TodoList extends React.Component {
         e.stopPropagation()
         let target = e.target
         let index = target.getAttribute("data-index")
-        let changeItem = {
-            title: this.props.data[index].title,
-            isFinished: target.checked
-        }
-        this.props.onChangeIsfinish(index, changeItem)
+        let isChecked = target.checked
+        this.props.onChangeIsfinish(index, isChecked)
     }
     _toggleAllChecked(e) {
         e.stopPropagation()
-        this.props.data.map(item => {
-            item.isFinished = e.target.checked
-        })
-        this.props.onToggleAll(this.props.data)
+        let isAllChecked = e.target.checked
+        this.props.onToggleAll(isAllChecked)
     }
     _deleteCurrent(e) {
         e.stopPropagation()
@@ -60,14 +55,16 @@ class TodoList extends React.Component {
     }
     _onChangeEdit(e) {
         let editTarget = e.target
-        let editValue = editTarget.value.trim()
-        this.setState({ editTitle: editValue })
+        this.setState({ editTitle: e.target.value.trim() })
     }
     _onKeyUpEnterEdit(e) {
         if (e.keyCode == 13) {
+            e.preventDefault()
+            e.nativeEvent.stopImmediatePropagation()
+            e.stopPropagation()
             console.log(1)
             // 确认更改
-            this.confirmEditing()
+            return this.confirmEditing()
         }
     }
     _onBlurEdit(e) {
@@ -79,7 +76,8 @@ class TodoList extends React.Component {
         if (this.editIndex) {
             this.doubleCliclTarget.className = ""
             this.props.onHasEdited(this.editIndex, this.state.editTitle)
-            console.log(this.editIndex)
+        } else {
+            // 不做修改回复之前的值
         }
     }
     render() {

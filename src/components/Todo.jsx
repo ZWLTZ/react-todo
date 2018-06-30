@@ -21,37 +21,42 @@ class Todo extends React.Component {
         this.onHasEdited = this.onHasEdited.bind(this)
     }
     componentDidMount() {
-        console.log("已經掛載上了")
+
     }
     //1 传递给子组件的回调函数
-    onAddSubmit(addCurrent) {
-        console.log(addCurrent, "要增加")
-        this.state.list.unshift(addCurrent)
+    onAddSubmit(addTitle) {
+        console.log("增加了：" + addTitle)
+        let addItem = {
+            title: addTitle,
+            isFinished: false
+        }
+        this.state.list.unshift(addItem)
         this.setState({ list: this.state.list })
-        //1.1 保存到session Storage
         this._saveToSession()
     }
+    //1.1 保存到session Storage
     _saveToSession() {
         Storage.save(this.state.list)
     }
-    onChangeIsfinish(index, item) {
-        this.state.list[index] = item
+    onChangeIsfinish(index, isChecked) {
+        console.log(isChecked ? "第：" + index + " 个被选中了" : "第：" + index + " 被取消了")
+        this.state.list[index].isFinished = isChecked
         this.setState({ list: this.state.list })
         this._saveToSession()
     }
     onDeleteItem(index) {
+        console.log(`删除了第：${index} 个`)
         this.state.list.splice(index, 1)
-        console.log(index, "將要刪除")
         this.setState({ list: this.state.list })
         this._saveToSession()
     }
-    onToggleAll(allList) {
-        if (allList.length) {
-            console.log(allList, "全部切换为")
-            // 重置
-            this.setState({ list: allList })
-            this._saveToSession()
-        }
+    onToggleAll(isAllChecked) {
+        console.log(isAllChecked ? "全部选中" : "全部取消")
+        this.state.list.map(item => {
+            item.isFinished = isAllChecked
+        })
+        this.setState({ list: this.state.list })
+        this._saveToSession()
     }
     // 重新编辑回调
     onHasEdited(index, value) {

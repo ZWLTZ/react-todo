@@ -3,7 +3,8 @@ import React from "react"
 class TodoAdd extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { item: { title: "", isFinished: false } }
+        console.log(this.props)
+        this.state = { title: "" }
         this._changeValueHandle = this._changeValueHandle.bind(this)
         this._onKeyUpEnter = this._onKeyUpEnter.bind(this)
         this._onBlurEnter = this._onBlurEnter.bind(this)
@@ -14,12 +15,8 @@ class TodoAdd extends React.Component {
     }
     // 1、只要值改變就獲取并重置
     _changeValueHandle(e) {
-        let content = e.target.value.trim()
         this.setState({
-            item: {
-                title: content,
-                isFinished: false
-            }
+            title: e.target.value.trim()
         })
     }
     // 2、點擊enter鍵：有值就確認增加
@@ -34,14 +31,11 @@ class TodoAdd extends React.Component {
     }
     // 4、確認增加，调用父组件的回调函数，传递参数
     confirmAddItem() {
-        if (this.state.item.title) {
-            this.props.onAddSubmit(this.state.item)
-            // 置空當前狀態
+        if (this.state.title) {
+            this.props.onAddSubmit(this.state.title)
+            // 置空當前
             this.setState({
-                item: {
-                    title: "",
-                    isFinished: false
-                }
+                title: ""
             })
         }
     }
@@ -50,7 +44,7 @@ class TodoAdd extends React.Component {
             <div className="todo-add">
                 <input type="text"
                     id="type-input"
-                    value={this.state.item.title}
+                    value={this.state.title}
                     onChange={this._changeValueHandle}
                     onKeyUp={this._onKeyUpEnter}
                     onBlur={this._onBlurEnter}
