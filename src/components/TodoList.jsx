@@ -4,13 +4,14 @@ class TodoList extends React.Component {
     constructor(props) {
         super(props)
         console.log(this.props)
-        this.state = { editTitle: "" }
+        this.state = { editTitle: "", isOnFocus: true }
         this._onChangeChecked = this._onChangeChecked.bind(this)
         this._toggleAllChecked = this._toggleAllChecked.bind(this)
         this._deleteCurrent = this._deleteCurrent.bind(this)
         this._onEditing = this._onEditing.bind(this)
         this._onChangeEdit = this._onChangeEdit.bind(this)
         this._onKeyUpEnterEdit = this._onKeyUpEnterEdit.bind(this)
+        this._isOnFocus = this._isOnFocus.bind(this)
         this._onBlurEdit = this._onBlurEdit.bind(this)
     }
     _onChangeChecked(e) {
@@ -54,51 +55,51 @@ class TodoList extends React.Component {
         }
     }
     _onChangeEdit(e) {
-        let editTarget = e.target
         this.setState({ editTitle: e.target.value.trim() })
     }
     _onKeyUpEnterEdit(e) {
         if (e.keyCode == 13) {
-            e.preventDefault()
-            e.nativeEvent.stopImmediatePropagation()
-            e.stopPropagation()
-            console.log(1)
             // 确认更改
-            return this.confirmEditing()
+            this.setState({ isOnFocus: false })
+            this.confirmEditing()
         }
     }
+    /**
+     * 因为enter后需要input隐藏，所以enter会连带触发onBlur事件，这里通过
+     * isFocus的动态改变来限制是否阻止onBlur事件
+     */
+    _isOnFocus(e) {
+        this.setState({ isOnFocus: true })
+    }
     _onBlurEdit(e) {
-        console.log(2)
-        // 确认更改
-        this.confirmEditing()
+        console.log(this.state.isOnFocus ? "通过失去焦点完成了编辑" : "通过Enter完成了编辑")
+        this.state.isOnFocus && this.confirmEditing()
     }
     confirmEditing() {
         if (this.editIndex) {
             this.doubleCliclTarget.className = ""
             this.props.onHasEdited(this.editIndex, this.state.editTitle)
-        } else {
-            // 不做修改回复之前的值
         }
     }
     render() {
-        let allTips = this.props.data.length > 1 ? this.props.data.length + " Matters" : this.props.data.length + " Matter"
         let filterCounts = () => {
-            let count = 0, left = 0
+            let completedCount = 0, leftCount = 0, total = this.props.data.length
+            let allTips = total > 1 ? total + " Matters" : total + " Matter"
             this.props.data.filter(item => {
                 if (item.isFinished) {
-                    count += 1
+                    completedCount += 1
                 } else {
-                    left += 1
+                    leftCount += 1
                 }
             })
-            return { count, left }
+            return { completedCount, leftCount, allTips }
         }
         return (
             <div className="todo-list">
                 <div className="toggle-all-box">
                     <label>
                         <input className="toggle-all" type="checkbox"
-                            checked={filterCounts().left == 0 && filterCounts().count != 0}
+                            checked={filterCounts().leftCount == 0}
                             onChange={this._toggleAllChecked} />
                     </label>
                 </div>
@@ -117,14 +118,15 @@ class TodoList extends React.Component {
                                 value={this.state.editTitle}
                                 onChange={this._onChangeEdit}
                                 onKeyUp={this._onKeyUpEnterEdit}
+                                onFocus={this._isOnFocus}
                                 onBlur={this._onBlurEdit} />
                         </li>
                     )}
                 </ul>
                 <div className="counts-status">
-                    <span className="finished-count">Completed：{filterCounts().count}</span>
-                    <span className="left-count">{filterCounts().left > 1 ? filterCounts().left + " Matters left" : filterCounts().left + " Matter left"}</span>
-                    <span className="total-count">{allTips}</span>
+                    <span className="finished-count">Completed：{filterCounts().completedCount}</span>
+                    <span className="left-count">{filterCounts().leftCount > 1 ? filterCounts().leftCount + " Matters left" : filterCounts().leftCount + " Matter left"}</span>
+                    <span className="total-count">{filterCounts().allTips}</span>
                 </div>
             </div>
         )
