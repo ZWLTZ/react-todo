@@ -101,7 +101,7 @@ class TodoList extends React.Component {
                 <div className="toggle-all-box">
                     <label>
                         <input className="toggle-all" type="checkbox"
-                            checked={filterCounts().leftCount == 0}
+                            checked={filterCounts().leftCount == 0 && filterCounts().completedCount !== 0}
                             onChange={this._toggleAllChecked} />
                     </label>
                 </div>
