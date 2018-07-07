@@ -46,12 +46,8 @@ class TodoList extends React.Component {
             this.beforeEditValue = this.props.data[this.editIndex].title
             this.setState({ editTitle: this.beforeEditValue })
             // 當前下面input获取焦点
-            let childrenList = this.doubleCliclTarget.children
-            for (let i = 0, len = childrenList.length; i < len; i++) {
-                if (childrenList[i].className == "edit-item") {
-                    childrenList[i].focus()
-                }
-            }
+            let input = this.doubleCliclTarget.getElementsByClassName("edit-item")[0]
+            input.focus()
         }
     }
     _onChangeEdit(e) {
