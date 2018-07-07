@@ -1,6 +1,3 @@
-const add = function (x, y) {
-    return x + y
-}
 
 function resetPhone(phone) {
     var str = String(phone)
@@ -37,7 +34,5 @@ const Storage = {
 
 
 export {
-    add,
-    resetPhone,
     Storage
 }
