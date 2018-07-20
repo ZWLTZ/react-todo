@@ -21,7 +21,8 @@
   "dependencies": {
     "lib-flexible": "^0.3.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

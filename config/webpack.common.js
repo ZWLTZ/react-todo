@@ -8,6 +8,7 @@ const CONFIG = require("./config")
 const VENDOR = [
     "react",
     "react-dom",
+    "react-router-dom",
     "lib-flexible",
 ];
 
