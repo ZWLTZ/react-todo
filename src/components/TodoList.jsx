@@ -40,6 +40,11 @@ class TodoList extends React.Component {
         let doubleCliclTarget = e.target
         if (doubleCliclTarget.nodeName.toUpperCase() === "LI") {
             this.doubleCliclTarget = doubleCliclTarget
+            // 此处可以通过当前组件的状态直接更新是否要追加：editing className。
+            /**
+             *  if(this.state.isDoubleClick) classList.push("editing")
+             *  <li className = {classList.join(" ")} >
+             */
             this.doubleCliclTarget.className = "editing"
             // 指定当前的value
             this.editIndex = doubleCliclTarget.getAttribute("data-index")
